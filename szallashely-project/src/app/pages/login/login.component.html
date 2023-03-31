@@ -1,0 +1,15 @@
+<h1>Bejelentkezés</h1>
+<div class="login">
+    <form >
+        <label for="email">Email címe</label>
+        <br>
+        <input type="text" id="email" [formControl]="email">
+        <br>
+        <label for="password" >Jelszó</label>
+        <br>
+        <input type="password" id="password" [formControl]="password">
+        <br>
+        <button (click)="login()">Bejelentkezés</button>
+    </form>
+    
+</div> 
