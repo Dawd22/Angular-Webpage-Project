@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-szallashely": {
+      "hosting": {
+        "szallashely-project": [
+          "angular-szallashely"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-szallashely"
+  }
+}
