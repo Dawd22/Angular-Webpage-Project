@@ -1,0 +1,35 @@
+#rooms{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    padding: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    align-items:center;
+    border: 1pxs;
+    
+}
+#elem{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    align-items:center; 
+    border: 1px solid black; /* hozzáadott border */
+    border-radius: 10px;
+    background-color:rgb(177, 135, 255);
+}
+p{
+    font-size: large;
+    font-weight: 500;
+}
+h1{
+    font-size: 35px;
+    text-align: center;
+    text-decoration: overline;
+    font-style: italic;
+}
+body{
+    margin: 0;
+}

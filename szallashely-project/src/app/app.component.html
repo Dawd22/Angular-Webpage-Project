@@ -9,6 +9,14 @@
           <mat-icon>logout</mat-icon>
           <span>Kijelentkezés</span>
       </a>
+      <a mat-list-item routerLink="/rooms" *ngIf="(loggedInUser)" (click)="onClose(sidenav)">
+        <mat-icon>card_travel</mat-icon>
+        <span>Szobák</span>
+      </a>
+      <a mat-list-item routerLink="/reservation" *ngIf="(loggedInUser)" (click)="onClose(sidenav)">
+        <mat-icon>calendar_today</mat-icon>
+        <span>Foglalások</span>
+      </a>
         <a mat-list-item routerLink="/signup" *ngIf="!(loggedInUser)" (click)="onClose(sidenav)">
             <mat-icon>app_registration</mat-icon>
             <span>Regisztráció</span>
@@ -32,6 +40,8 @@
           <li><a routerLink="/main">Főoldal</a></li>
           <li *ngIf="!(loggedInUser)"><a routerLink="/login">Bejelentkezés</a></li>
           <li *ngIf="(loggedInUser)"><a routerLink="/login" (click)="logout()">Kijelentkezés</a></li>
+          <li *ngIf="(loggedInUser)"><a routerLink="/rooms">Szobák</a></li>
+          <li *ngIf="(loggedInUser)"><a routerLink="/reservation">Foglalások</a></li>
           <li *ngIf="!(loggedInUser)"><a routerLink="/signup">Regisztració</a></li>
         </ul>
       </div>

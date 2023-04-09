@@ -1,0 +1,38 @@
+<div id="rooms">
+  <h1>Szobák</h1>
+  <div *ngFor="let room of room | async">
+    <input type="hidden" [value]="room.id" #roomId />
+    <div id="elem">
+      <p>Hotel: {{ room.hotel }}</p>
+      <p>Szoba: {{ room.type }}</p>
+      <p>1 éjszakára ára: {{ room.price }} Ft</p>
+      <p>Ország: {{ room.location.country }}</p>
+      <p>Város: {{ room.location.city }}</p>
+    </div>
+    <mat-form-field>
+      <span>Érkezés dátuma</span>
+      <input matInput [matDatepicker]="picker" #firstdayInput />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+<br>
+    <mat-form-field>
+      <span>Távozás dátuma</span>
+      <input matInput [matDatepicker]="picker2" #lastdayInput />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+    <br />
+    <div id="but">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="book(firstdayInput.value, lastdayInput.value, room.id)"
+    >
+      Foglalás
+    </button>
+  </div>
+    <br />
+    <br />
+  </div>
+</div>

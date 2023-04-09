@@ -1,0 +1,21 @@
+<div id="rooms">
+  <div *ngIf="(reservations$ | async)?.length; else noReservations">
+    <div *ngFor="let reservation of reservations$ | async">
+      <div id="elem">
+        <h1>Foglalás</h1>
+        <p>Hotel: {{ reservation.room_hotel }}</p>
+        <p>Szoba: {{ reservation.room_type }}</p>
+        <p>Teljes ár: {{ reservation.full_price }} Ft</p>
+        <p>Érkezés dátuma: {{ reservation.firstday }}</p>
+        <p>Távozás dátuma: {{ reservation.lastday }}</p>
+        <p>Felhasználó email címe: {{ reservation.user_email }}</p>
+      </div>
+      <br />
+    </div>
+  </div>
+</div>
+
+<ng-template #noReservations>
+  <p id="elem">Nem történt foglalás.</p>
+</ng-template>
+

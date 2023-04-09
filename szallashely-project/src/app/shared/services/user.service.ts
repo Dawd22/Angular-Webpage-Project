@@ -16,10 +16,10 @@ export class UserService {
       .set(user);
   }
   getAll() {
-    return this.afs.collection<User>(this.collectionName).valueChanges;
+    return this.afs.collection<User>(this.collectionName).valueChanges();
   }
   getById(id: string) {
-    return this.afs.collection<User>(this.collectionName).doc(id).valueChanges;
+    return this.afs.collection<User>(this.collectionName).doc(id).valueChanges();
   }
   update(user: User) {
     return this.afs
