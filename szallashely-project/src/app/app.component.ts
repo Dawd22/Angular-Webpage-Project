@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from './shared/services/auth.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit{
   title = 'szallashely-project';
+
   loggedInUser?: firebase.default.User | null;
+  isAdmin$: Observable<boolean>;
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {

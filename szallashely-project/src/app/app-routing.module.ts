@@ -8,6 +8,7 @@ const routes: Routes = [
 {path: 'reservation', loadChildren: () => import('./pages/reservation/reservation.module').then(m => m.ReservationModule) },
 {path: "", redirectTo:'/main', pathMatch:'full'},
 {path: 'not-found', loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) },
+{ path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule) },
 {path:'**', redirectTo:'/not-found'}
 
 ];

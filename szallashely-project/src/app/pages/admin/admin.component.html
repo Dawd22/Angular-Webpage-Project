@@ -1,0 +1,18 @@
+<div id="rooms">
+<button mat-raised-button color="primary">Szoba hozzáadása</button>
+  <h1>Szobák</h1>
+  <div *ngFor="let room of room | async">
+    <input type="hidden" [value]="room.id" #roomId />
+    <div id="elem">
+      <p>Hotel: {{ room.hotel }}</p>
+      <p>Szoba: {{ room.type }}</p>
+      <p>1 éjszakára ára: {{ room.price }} Ft</p>
+      <p>Ország: {{ room.location.country }}</p>
+      <p>Város: {{ room.location.city }}</p>
+      <div id="but">
+        <button mat-raised-button color="primary" (click)="delete(room.id)">Delete</button>
+        <button mat-raised-button color="primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

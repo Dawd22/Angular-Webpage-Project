@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
     const email = this.signupForm.get('email')?.value || '';
     const password = this.signupForm.get('password')?.value || '';
     if (!email || !password) {
-      console.error('Email vagy a jelszó üres');
+      alert("Email vagy a jelszó üres!");
     }
     this.authService
       .signup(email, password)
@@ -35,6 +35,7 @@ export class SignupComponent implements OnInit {
           id: cred.user?.uid as string,
           email: email,
           username: this.signupForm.get('username')?.value as string,
+          type:'user'
         };
         this.userService
           .create(user)
@@ -42,6 +43,7 @@ export class SignupComponent implements OnInit {
             console.log('Sikeres regisztráció');
           })
           .catch((error) => {
+            alert("Hiba történt a regisztráció során!");
             console.log(error);
           }); 
         this.router.navigateByUrl('/main');

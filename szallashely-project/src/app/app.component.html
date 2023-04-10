@@ -21,6 +21,10 @@
             <mat-icon>app_registration</mat-icon>
             <span>Regisztráció</span>
         </a>
+        <a mat-list-item routerLink="/admin"*ngIf="(loggedInUser)" (click)="onClose(sidenav)">
+          <mat-icon>admin_panel_settings</mat-icon>
+          <span>Admin</span>
+      </a>
         <a mat-list-item routerLink="/main" (click)="onClose(sidenav)">
             <mat-icon>home</mat-icon>
             <span>Kezdőlap</span>
@@ -43,6 +47,7 @@
           <li *ngIf="(loggedInUser)"><a routerLink="/rooms">Szobák</a></li>
           <li *ngIf="(loggedInUser)"><a routerLink="/reservation">Foglalások</a></li>
           <li *ngIf="!(loggedInUser)"><a routerLink="/signup">Regisztració</a></li>
+          <li *ngIf="(loggedInUser)"><a routerLink="/admin">Admin</a></li>
         </ul>
       </div>
     </mat-toolbar>
