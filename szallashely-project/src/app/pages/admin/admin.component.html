@@ -3,110 +3,139 @@
     <span>Szoba hozzáadása</span>
     <mat-icon>hotel</mat-icon>
   </button>
- 
-  <div *ngIf="addRoom" id="elem">
-    <form [formGroup]="roomForm" (ngSubmit)="add()">
-    <mat-form-field>
-      <input matInput placeholder="Hotel" formControlName="hotel" />
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Szoba" formControlName="type"/>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="number" placeholder="Ár" formControlName="price"/>
-    </mat-form-field>
-    <div formGroupName="location" id="ya">
-    <mat-form-field>
-      <input matInput placeholder="Ország" formControlName="country"/>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Város" formControlName="city"/>
-    </mat-form-field>
-    </div>
-    <div id="but">
-    <button mat-fab extended>
-        <span>Hozzáadása</span>
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
-    </form>
-  </div>
-<div *ngIf="!addRoom">
-  <h1>Szobák</h1>
-  <div *ngFor="let r of rooms | async">
-    <input type="hidden" [value]="r.id" #roomId />
-    <div id="elem">
-      <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
-        Hotel: {{ r.hotel }}
-      </p>
-      <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
-        Szoba: {{ r.type }}
-      </p>
-      <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
-        1 éjszakára ára: {{ r.price }} Ft
-      </p>
-      <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
-        Ország: {{ r.location.country }}
-      </p>
-      <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
-        Város: {{ r.location.city }}
-      </p>
-      <div *ngIf="selectedRoom && selectedRoom.id !== r.id">
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="selectRoomById(r.id)"
-        >
-          Frissítés
-        </button>
+  <br>
+  <button mat-fab extended (click)="userList()">
+    <span>Felhasználók listázása</span>
+    <mat-icon>man</mat-icon>
+  </button>
+  <br>
+  <div *ngIf="userlist">
+    <h1>Felhasznalok</h1>
+    <div *ngFor="let user of users | async">
+      <input type="hidden" [value]="user.id" #userId />
+      <div id="elem">
+        <p>Email: {{ user.email }}</p>
+        <p>Felhasználónév: {{ user.username }}</p>
+        <p>Rang {{ user.type }}</p>
+        <div>
+          <div id="but">
+            <button mat-fab extended (click)="deleteUser(user.id)">Törlés</button>
+          </div>
+        </div>
       </div>
-
-      <div id="elem" *ngIf="selectedRoom.id === r.id">
-        <mat-form-field appearance="fill">
-          <mat-label>Hotel</mat-label>
-          <input matInput [(ngModel)]="selectedRoom.hotel" value="r.hotel" />
+    </div>
+  </div>
+  <div *ngIf="addRoom" id="elem">
+    <h1>Szoba hozzáadás</h1>
+    <form [formGroup]="roomForm" (ngSubmit)="add()" id="elem">
+      <mat-form-field>
+        <input matInput placeholder="Hotel" formControlName="hotel" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Szoba" formControlName="type" />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          placeholder="Ár"
+          formControlName="price"
+        />
+      </mat-form-field>
+      <div formGroupName="location" id="ya">
+        <mat-form-field>
+          <input matInput placeholder="Ország" formControlName="country" />
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Szoba</mat-label>
-          <input matInput [(ngModel)]="selectedRoom.type" value="r.type" />
+        <mat-form-field>
+          <input matInput placeholder="Város" formControlName="city" />
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Ár</mat-label>
-          <input
-            matInput
-            type="number"
-            [(ngModel)]="selectedRoom.price"
-            value="r.price"
-          />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Ország</mat-label>
-          <input
-            matInput
-            [(ngModel)]="selectedRoom.location.country"
-            value="r.location.country"
-          />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Város</mat-label>
-          <input
-            matInput
-            [(ngModel)]="selectedRoom.location.city"
-            value="r.location.city"
-          />
-        </mat-form-field>
-
-        <br />
-        <button mat-flat-button color="warn" (click)="update()">Mentés</button>
       </div>
       <div id="but">
-        <button mat-fab extended (click)="delete(r.id)">Törlés</button>
+        <button mat-fab extended>
+          <span>Hozzáadása</span>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="!addRoom && !userlist">
+    <h1>Szobák</h1>
+    <div *ngFor="let r of rooms | async">
+      <input type="hidden" [value]="r.id" #roomId />
+      <div id="elem">
+        <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
+          Hotel: {{ r.hotel }}
+        </p>
+        <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
+          Szoba: {{ r.type }}
+        </p>
+        <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
+          1 éjszakára ára: {{ r.price }} Ft
+        </p>
+        <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
+          Ország: {{ r.location.country }}
+        </p>
+        <p *ngIf="selectedRoom && selectedRoom.id !== r.id">
+          Város: {{ r.location.city }}
+        </p>
+        <div *ngIf="selectedRoom && selectedRoom.id !== r.id">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="selectRoomById(r.id)"
+          >
+            Frissítés
+          </button>
+        </div>
+
+        <div id="elem" *ngIf="selectedRoom.id === r.id">
+          <mat-form-field appearance="fill">
+            <mat-label>Hotel</mat-label>
+            <input matInput [(ngModel)]="selectedRoom.hotel" value="r.hotel" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Szoba</mat-label>
+            <input matInput [(ngModel)]="selectedRoom.type" value="r.type" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Ár</mat-label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="selectedRoom.price"
+              value="r.price"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Ország</mat-label>
+            <input
+              matInput
+              [(ngModel)]="selectedRoom.location.country"
+              value="r.location.country"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Város</mat-label>
+            <input
+              matInput
+              [(ngModel)]="selectedRoom.location.city"
+              value="r.location.city"
+            />
+          </mat-form-field>
+
+          <br />
+          <button mat-flat-button color="warn" (click)="update()">
+            Mentés
+          </button>
+        </div>
+        <div id="but">
+          <button mat-fab extended (click)="delete(r.id)">Törlés</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>

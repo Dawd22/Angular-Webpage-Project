@@ -7,7 +7,7 @@ import { Timestamp } from 'firebase/firestore'
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
-  styleUrls: ['./reservation.component.scss']
+  styleUrls: ['./reservation.component.scss'],
 })
 export class ReservationComponent implements OnInit{
   reservations$: Observable<reservation[]>;
@@ -26,5 +26,8 @@ export class ReservationComponent implements OnInit{
         });
       })
     );
+  }
+  deleteReservation(id:string){
+    this.reservationService.delete(id);
   }
 }

@@ -2,16 +2,20 @@
   <div *ngIf="(reservations$ | async)?.length; else noReservations">
     <div *ngFor="let reservation of reservations$ | async">
       <div id="elem">
+        <input type="hidden" [value]="reservation.id" #reservationId />
         <h1>Foglalás</h1>
         <p>Hotel: {{ reservation.room_hotel }}</p>
         <p>Szoba: {{ reservation.room_type }}</p>
         <p>Teljes ár: {{ reservation.full_price }} Ft</p>
-        <p>Érkezés dátuma: {{ reservation.firstday }}</p>
-        <p>Távozás dátuma: {{ reservation.lastday }}</p>
+        <p>Érkezés dátuma: {{ reservation.firstday| dateFormat }}</p>
+        <p>Távozás dátuma: {{ reservation.lastday | dateFormat}}</p>
         <p>Felhasználó email címe: {{ reservation.user_email }}</p>
+        <div id="but">
+          <button mat-fab extended color="primary" (click)="deleteReservation(reservation.id)">Törlés</button>
+        </div>
+  </div>
       </div>
       <br />
-    </div>
   </div>
 </div>
 

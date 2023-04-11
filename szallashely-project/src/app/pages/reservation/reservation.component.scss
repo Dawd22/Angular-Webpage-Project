@@ -6,7 +6,8 @@
     max-width: 500px;
     margin: 20px auto;
     align-items:center;
-    border: 1pxs;
+    border: 1px ;
+    min-height: 100vh
     
 }
 #elem{
@@ -16,9 +17,9 @@
     max-width: 500px;
     margin: 20px auto;
     align-items:center; 
-    border: 1px solid black; /* hozzáadott border */
+    border: 1px solid black; 
     border-radius: 10px;
-    background-color:rgb(177, 135, 255);
+    background-color:#8a8a8a;
 }
 p{
     font-size: large;

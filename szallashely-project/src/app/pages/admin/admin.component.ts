@@ -3,9 +3,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { room } from 'src/app/shared/models/room';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { User } from 'src/app/shared/models/user';
 import { RoomService } from 'src/app/shared/services/room.service';
-
+import { UserService } from 'src/app/shared/services/user.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -13,9 +13,10 @@ import { RoomService } from 'src/app/shared/services/room.service';
 })
 export class AdminComponent implements OnInit {
   rooms: Observable<room[]>;
+  users: Observable<User[]>;
   selectedRoom: room;
   addRoom: boolean;
-
+  userlist: boolean;
   roomForm = new FormGroup({
     hotel: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
@@ -24,17 +25,18 @@ export class AdminComponent implements OnInit {
       country: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required)
     })
-
   });
 
-  constructor(private roomService: RoomService, private afs: AngularFirestore){}
+  constructor(private roomService: RoomService, private afs: AngularFirestore, private userService: UserService){}
   ngOnInit(): void {
     this.rooms = this.roomService.getAll();
+    this.users = this.userService.getAll();
     const rSub= this.roomService.getAll().subscribe((rooms) => {
       this.selectedRoom = rooms[0];
       rSub.unsubscribe;
     });
     this.addRoom = false;
+    this.userlist = false;
   }
   
   selectRoomById(roomId: string): void {
@@ -44,8 +46,12 @@ export class AdminComponent implements OnInit {
       rSub.unsubscribe();
     });
   }
+
   delete(roomId: string){
     this.roomService.delete(roomId);
+  }
+  deleteUser(userId: string){
+    this.userService.delete(userId);
   }
   add(): void {
     const newRoom: room = {
@@ -63,8 +69,10 @@ export class AdminComponent implements OnInit {
       this.changeAddRoom();
     });
   }
-  
-  
+
+  userList(){
+    this.userlist=!this.userlist;
+  }
 
   update() {
     this.roomService.update(this.selectedRoom).then(() => {
@@ -73,6 +81,7 @@ export class AdminComponent implements OnInit {
       alert('Hiba történt a frissítés során');
     });
   }
+
   changeAddRoom(){
     this.addRoom= !this.addRoom;
   }
