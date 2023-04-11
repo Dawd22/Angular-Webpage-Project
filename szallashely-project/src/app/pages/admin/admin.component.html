@@ -9,21 +9,36 @@
     <mat-icon>man</mat-icon>
   </button>
   <br>
-  <div *ngIf="userlist">
+  <div *ngIf="userlist" >
     <h1>Felhasznalok</h1>
-    <div *ngFor="let user of users | async">
-      <input type="hidden" [value]="user.id" #userId />
-      <div id="elem">
-        <p>Email: {{ user.email }}</p>
-        <p>Felhasználónév: {{ user.username }}</p>
-        <p>Rang {{ user.type }}</p>
-        <div>
-          <div id="but">
-            <button mat-fab extended (click)="deleteUser(user.id)">Törlés</button>
-          </div>
-        </div>
+    <div *ngFor="let user of users | async" >
+      <input type="hidden" [value]="user.id" #userId *ngIf="selectedUser && selectedUser.id !== user.id"/>
+      <div id="elem" *ngIf="selectedUser && selectedUser.id !== user.id">
+        <p *ngIf="selectedUser && selectedUser.id !== user.id">Email: {{ user.email }}</p>
+        <p *ngIf="selectedUser && selectedUser.id !== user.id">Felhasználónév: {{ user.username }}</p>
+        <p *ngIf="selectedUser && selectedUser.id !== user.id">Rang {{ user.type }}</p>
+            <button mat-raised-button color="primary" (click)="selectUserById(user.id)" *ngIf="selectedUser && selectedUser.id !== user.id">Frissítés</button> 
+            <button mat-fab extended (click)="deleteUser(user.id)" *ngIf="selectedUser && selectedUser.id !== user.id">Törlés</button>
       </div>
+      <div id="elem" *ngIf="selectedUser.id === user.id">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="selectedUser.email" value="user.email" disabled="" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Felhasználónév</mat-label>
+          <input matInput [(ngModel)]="selectedUser.username" value="user.username" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Rang</mat-label>
+          <input matInput [(ngModel)]="selectedUser.type" value="user.type" />
+        </mat-form-field>
+        <br />
+        <button mat-flat-button color="warn" (click)="updateUser()"> Mentés</button>
     </div>
+  </div>
   </div>
   <div *ngIf="addRoom" id="elem">
     <h1>Szoba hozzáadás</h1>

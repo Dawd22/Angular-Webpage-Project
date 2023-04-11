@@ -15,8 +15,10 @@ export class AdminComponent implements OnInit {
   rooms: Observable<room[]>;
   users: Observable<User[]>;
   selectedRoom: room;
+  selectedUser: User;
   addRoom: boolean;
   userlist: boolean;
+
   roomForm = new FormGroup({
     hotel: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
@@ -33,6 +35,10 @@ export class AdminComponent implements OnInit {
     this.users = this.userService.getAll();
     const rSub= this.roomService.getAll().subscribe((rooms) => {
       this.selectedRoom = rooms[0];
+      rSub.unsubscribe;
+    });
+    const uSub= this.userService.getAll().subscribe((users) => {
+      this.selectedUser = users[0];
       rSub.unsubscribe;
     });
     this.addRoom = false;
@@ -81,8 +87,21 @@ export class AdminComponent implements OnInit {
       alert('Hiba történt a frissítés során');
     });
   }
-
+  updateUser() {
+    this.userService.update(this.selectedUser).then(() => {
+      alert('Sikeres frissítés!');
+    }).catch((error) => {
+      alert('Hiba történt a frissítés során');
+    });
+  }
   changeAddRoom(){
     this.addRoom= !this.addRoom;
+  }
+  selectUserById(userId: string){
+    const uSub = this.userService.getById(userId).subscribe((user) => {
+      this.selectedUser = user;
+      console.log(this.selectedUser);
+      uSub.unsubscribe();
+    });
   }
 }
