@@ -16,7 +16,7 @@
       <div id="elem" *ngIf="selectedUser && selectedUser.id !== user.id">
         <p *ngIf="selectedUser && selectedUser.id !== user.id">Email: {{ user.email }}</p>
         <p *ngIf="selectedUser && selectedUser.id !== user.id">Felhasználónév: {{ user.username }}</p>
-        <p *ngIf="selectedUser && selectedUser.id !== user.id">Rang {{ user.type }}</p>
+        <p *ngIf="selectedUser && selectedUser.id !== user.id">Rang: {{ user.type }}</p>
             <button mat-raised-button color="primary" (click)="selectUserById(user.id)" *ngIf="selectedUser && selectedUser.id !== user.id">Frissítés</button> 
             <button mat-fab extended (click)="deleteUser(user.id)" *ngIf="selectedUser && selectedUser.id !== user.id">Törlés</button>
       </div>
