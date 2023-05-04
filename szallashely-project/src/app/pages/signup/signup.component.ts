@@ -13,7 +13,7 @@ export class SignupComponent implements OnInit {
   signupForm = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.email),
   });
   constructor(
     private router: Router,
@@ -49,6 +49,7 @@ export class SignupComponent implements OnInit {
         this.router.navigateByUrl('/main');
       })
       .catch((error) => {
+        alert("Helytelen email vagy jelszó, a jelszónak minimum 6 karakternek kell lennie!")
         console.log(error);
       });
   }
